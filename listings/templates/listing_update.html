@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listing Update</title>
+</head>
+<body>
+
+    <span>Hello {{request.user}}</span>
+    <a href="{% url 'logout' %}">Logout</a>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+</html>

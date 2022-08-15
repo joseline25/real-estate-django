@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Listings</title>
+</head>
+<body>
+    
+    <span>Hello {{request.user}}</span>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <div class="container">
+        <h3>
+            Search?
+        </h3>
+
+        <form method="POST" action="{% url 'search_listing' %}">
+            {% csrf_token %}
+    
+            
+            <input type="text" placeholder="Search a listing ... "    name="search" style="width: 300px;">
+            
+            <label for="loca">Location</label>
+            <select name="location" id="loca">
+                
+                <option value="location" selected="selected">Location</option>
+                {% for location in locations %}
+                    <option value="{{location.address}}">{{location.address}}</option>
+                {% endfor %}
+            </select>
+            
+            
+        
+            
+        
+            
+    
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+
+{% if listings_search %}
+<div class="container" style="text-align: center;">
+    <h3 style="text-justify: center;">Results for <span style="color: red;">"{{ search_value }}" </span></h3>   
+</div>
+<br>
+    {% for li in listings_search %}
+    <div class="container" style="display: flex ; justify-content: center;">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <a href="{% url 'list_details'  li.id %}"><h3> {{ forloop.counter }}.{{ li.title}} in {{li.address}} </h3></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+{% endif %}
+
+
+
+
+    <h2>
+     List of our listings!   
+    </h2>
+
+
+    {% for listing in listings %}
+
+        <p><a href="{% url 'list_details' listing.id %}">{{listing.title}} situated in {{listing.address}}</a> </p>
+
+            {% if listing.image %}
+            <div>
+                <img src="{{ listing.image.url }}"  alt="" style="border: 1px solid #ddd; width: 200px; height:200px;">
+            </div>
+            {% endif %}
+
+            {{ listing.status }}
+
+            {% if listing.status == "Available" %}
+
+            <a href="{% url 'create_booking' listing.id %}"><button type="submit">Book</button></a>
+            
+            {% endif %}
+
+    {% endfor %}
+
+    <a href="{% url 'create_listing' %}"><button type="submit">Create a new listing</button></a>
+ 
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listing Details</title>
+</head>
+<body>
+  <p>Title : {{listing.title}}</p>
+   <p>Address : {{listing.address}}</p>
+    <p>Price : {{listing.price}} Fcfa</p>
+ <p>Number of Bedrooms : {{listing.num_bedrooms}}</p>
+<p>Number of Bathrooms : {{listing.num_bathrooms}}</p>
+<p>Square Footage : {{listing.square_footage}} square meters</p>
+
+<a href="{% url 'update_listing' listing.id %}"><button>Update</button></a><br>
+
+<a href="{% url 'delete_listing' listing.id %}"><button>Delete</button></a>
+</body>
+</html>
